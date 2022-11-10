@@ -1,4 +1,4 @@
-Fechas para entregar avances del proyecto:
+## Fechas para entregar avances del proyecto:
 
 | # Entrega | Fecha Entrega | Trabajo asignado |
 | ------------- | ------------- | ------------- |
