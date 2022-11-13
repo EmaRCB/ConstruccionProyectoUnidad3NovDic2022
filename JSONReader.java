@@ -1,4 +1,3 @@
-package Codigo;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOError;
@@ -18,7 +17,7 @@ public class JSONReader {
         String lastName;
         String photo;
 
-        try (Reader reader = new FileReader("./Lib/actores.json")){
+        try (Reader reader = new FileReader("actores.json")){
             JSONObject jsonObject = (JSONObject) parser.parse(reader);
 
             JSONObject employees = (JSONObject) jsonObject.get("employees");
