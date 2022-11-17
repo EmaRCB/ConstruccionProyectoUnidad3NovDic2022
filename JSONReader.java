@@ -1,11 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOError;
 import java.io.IOException;
 import java.io.Reader;
 import java.text.ParseException;
-import java.util.Iterator;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -13,7 +11,14 @@ import org.json.simple.parser.*;
 
 public class JSONReader {
 
-    public boolean JSONExists(String pathfile) {
+    public void readJson(){
+        if (JSONExists() && validateJson()){
+            System.out.println("Aquí comienza el proceso de la entraga 2");
+        }
+    }
+
+    public boolean JSONExists() {
+        String pathfile = "actores.json";
         File file = new File(pathfile);
         if (file.exists()) {
             return true;
@@ -22,7 +27,8 @@ public class JSONReader {
         }
     }
 
-    public JSONObject readJSON(String pathfile){
+    public boolean validateJson(){
+        String pathfile = "actores.json";
         JSONObject employees = new JSONObject();
         JSONParser parser = new JSONParser();
 
@@ -49,27 +55,29 @@ public class JSONReader {
                 photo = (String) employeeId.get("photo");
                 
                 if(id == null || firstName == null || lastName == null || photo == null){
+
                     throw new Exception("Formato de archivo JSON incorrecto");
                 }
 
                 //System.out.println(id + " " + firstName + " " + lastName + " " + photo);
             }
         }catch(FileNotFoundException e){
-            e.printStackTrace();
+            return false;
         }catch(NullPointerException e){
-            e.printStackTrace();
+            return false;
         }catch(IOException e){
-            e.printStackTrace();
+            return false;
         }catch(ParseException e){
-            e.printStackTrace();
+            return false;
         }catch(Error e){
             System.out.println("Formato de archivo JSON incorrecto");
-            e.printStackTrace();
+            return false;
         }catch(Exception e){
-            e.printStackTrace();
+            return false;
         }
         
-        return employees;
+        return true;
     }
+
 
 }
