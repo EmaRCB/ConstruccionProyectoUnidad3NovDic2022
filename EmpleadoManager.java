@@ -6,17 +6,10 @@ public class EmpleadoManager {
 
     public void addContact(String id, String firstName, String lastName, String photo) {
         Empleado empleado = new Empleado(id, firstName, lastName, photo);
-        validarEmpleado(empleado);
         empleados.add(empleado);
     }
 
-    private void validarEmpleado(Empleado empleado) {
-        empleado.validateID();
-        empleado.validateFirstName();
-        empleado.validateLastName();
-        empleado.validatePhoto();
-    }
-
+    
     public ArrayList<String> idList(){
         ArrayList<String> idArray = new ArrayList<String>();
         ArrayList<Empleado> array = new ArrayList<Empleado>();
