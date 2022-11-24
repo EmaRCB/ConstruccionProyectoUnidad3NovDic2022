@@ -6,7 +6,7 @@ public class Main {
         JSONReader jsonReader = new JSONReader();
 
         // Probar que el formato del archivo JSON sea correcto
-        jsonReader.readJSON("actores.json");
+        jsonReader.readJson();
 
     }
 

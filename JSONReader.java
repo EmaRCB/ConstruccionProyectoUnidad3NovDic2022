@@ -4,18 +4,28 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
+
 public class JSONReader {
+    
+    EmpleadoManager empManager = new EmpleadoManager();
 
     public void readJson(){
-        if (JSONExists() && validateJson()){
-            System.out.println("Aquí comienza el proceso de la entraga 2");
+        if (JSONExists()){
+            System.out.println("Aquí comienza el proceso de la entrega 2");
+            convertJSONToObjects();
+
+            System.out.println(empManager.getAllContacts());
+            
+
         }
     }
+
 
     public boolean JSONExists() {
         String pathfile = "actores.json";
@@ -27,10 +37,12 @@ public class JSONReader {
         }
     }
 
-    public boolean validateJson(){
+
+    public void convertJSONToObjects(){
         String pathfile = "actores.json";
         JSONObject employees = new JSONObject();
         JSONParser parser = new JSONParser();
+        
 
         try(Reader reader = new FileReader(pathfile)){
             //
@@ -54,30 +66,28 @@ public class JSONReader {
                 lastName = (String) employeeId.get("lastName");
                 photo = (String) employeeId.get("photo");
                 
-                if(id == null || firstName == null || lastName == null || photo == null){
+                empManager.addContact(id, firstName, lastName, photo);
 
-                    throw new Exception("Formato de archivo JSON incorrecto");
-                }
-
-                //System.out.println(id + " " + firstName + " " + lastName + " " + photo);
             }
         }catch(FileNotFoundException e){
-            return false;
+            e.printStackTrace();
         }catch(NullPointerException e){
-            return false;
+            e.printStackTrace();
         }catch(IOException e){
-            return false;
+            e.printStackTrace();
         }catch(ParseException e){
-            return false;
+            e.printStackTrace();
         }catch(Error e){
             System.out.println("Formato de archivo JSON incorrecto");
-            return false;
+            e.printStackTrace();
         }catch(Exception e){
-            return false;
+            e.printStackTrace();
         }
-        
-        return true;
     }
+
+
+    
+
 
 
 }
