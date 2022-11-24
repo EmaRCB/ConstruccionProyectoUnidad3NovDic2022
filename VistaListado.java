@@ -14,10 +14,10 @@ public class VistaListado extends JFrame {
     JFrame ventanaListaEmpleados;
     public VistaListado() throws IOException {
         iniciarVentana();
-        ArrayList<Empleado> arrayEmpleados = new ArrayList<Empleado>();
-        Empleado nuevoEmpleado = new Empleado ("123", "Emanuel", "Bagundo", "https://jsonformatter.org/img/tom-cruise.jpg");
-        arrayEmpleados.add(nuevoEmpleado);
-        mostrarDatos(arrayEmpleados);
+        //ArrayList<Empleado> arrayEmpleados = new ArrayList<Empleado>();
+        //Empleado nuevoEmpleado = new Empleado ("123", "Emanuel", "Bagundo", "https://jsonformatter.org/img/tom-cruise.jpg");
+        //arrayEmpleados.add(nuevoEmpleado);
+        //mostrarDatos(arrayEmpleados);
     }
     public void iniciarVentana(){
         ventanaListaEmpleados = new JFrame();
