@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.text.ParseException;
@@ -19,8 +20,10 @@ public class JSONReader {
         if (JSONExists() & validateJSON()){
             System.out.println("Aquí comienza el proceso de la entrega 2");
             convertJSONToObjects();
-            VistaListado nuevaVentana = new VistaListado();
-            nuevaVentana.mostrarDatos(empManager.getAllContacts());
+            //VistaListado nuevaVentana = new VistaListado();
+            //nuevaVentana.mostrarDatos(empManager.getAllContacts());
+            createJSONFileFromArrayList(empManager.getAllContacts());
+            //System.out.println(empManager.getAllContacts().get(2).getPhoto());
             System.out.println();
             
 
@@ -134,7 +137,45 @@ public class JSONReader {
 
 
     
+    public void createJSONFileFromArrayList(ArrayList<Empleado> employeesArray){
+        //System.out.print(employees);
 
+        JSONArray employeeList = new JSONArray();
+
+        int i = 0;
+        JSONObject employeeAttributes;
+        JSONObject employee = new JSONObject(); 
+        JSONObject jsonObject = new JSONObject();
+
+        for (Object object : employeesArray) {
+            employeeAttributes = new JSONObject();
+            employeeAttributes.put("id", empManager.getAllContacts().get(i).getId());
+            employeeAttributes.put("firstName", empManager.getAllContacts().get(i).getFirstName());
+            employeeAttributes.put("lastName", empManager.getAllContacts().get(i).getLastName());
+            String url = empManager.getAllContacts().get(i).getPhoto();
+            
+            employeeAttributes.put("photo", url);
+            
+            i++;
+            
+            employeeList.add(employeeAttributes);
+
+        }
+
+        employee.put("employee", employeeList);
+
+        JSONObject employees = new JSONObject();
+        employees.put("employees", employee);
+                                 
+        try(FileWriter fw = new FileWriter("empleados.json")){
+            fw.write(employees.toString());
+            fw.flush();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        
+    }
 
 
 }
