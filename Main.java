@@ -8,6 +8,7 @@ public class Main {
 
         // Probar que el formato del archivo JSON sea correcto
         jsonReader.readJson();
+        System.out.println(jsonReader.empManager.getAllContacts().size());
 
     }
 
