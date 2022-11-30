@@ -43,25 +43,6 @@ public class Empleado {
         this.photo = photo;
     }
 
-    public void validateID() {
-        if (this.id == null)
-            throw new RuntimeException("ID Cannot be null or empty");
-    }
-
-    public void validateFirstName() {
-        if (this.firstName == null)
-            throw new RuntimeException("First Name Cannot be null or empty");
-    }
-
-    public void validateLastName() {
-        if (this.lastName == null)
-            throw new RuntimeException("Last Name Cannot be null or empty");
-    }
-
-    public void validatePhoto() {
-        if (this.photo == null)
-            throw new RuntimeException("Photo Cannot be null or empty");
-    }
 
 
     @Override
