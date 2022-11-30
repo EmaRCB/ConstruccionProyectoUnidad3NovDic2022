@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.awt.Image;
 import java.net.URL;
@@ -18,10 +17,12 @@ public class VistaListado extends JFrame {
     private JTable tablaEmpleados;
     private JScrollPane scrollPane;
     private ArrayList<Empleado> arrayEmpleados;
+    private JSONReader jsonReader;
 
-    public VistaListado() throws IOException {
+    public VistaListado(JSONReader jsonReader) throws IOException {
+        this.jsonReader = jsonReader;
         iniciarComponentes();
-
+        /*
         ArrayList<Empleado> arrayEmpleados = new ArrayList<Empleado>();
         Empleado nuevoEmpleado = new Empleado ("123", "Emanuel", "Bagundo", "https://jsonformatter.org/img/tom-cruise.jpg");
         arrayEmpleados.add(nuevoEmpleado);
@@ -29,6 +30,8 @@ public class VistaListado extends JFrame {
         arrayEmpleados.add(nuevoEmpleado);
 
         mostrarDatos(arrayEmpleados);
+
+         */
 
     }
     public void iniciarComponentes(){
@@ -176,8 +179,12 @@ public class VistaListado extends JFrame {
                     arrayEmpleados.get(indiceEmpleado).setLastName(nuevoLN);
                     arrayEmpleados.get(indiceEmpleado).setPhoto(nuevoURL);
 
-
-
+                    jsonReader.createJSONFileFromArrayList(arrayEmpleados);
+                    try {
+                        mostrarDatos(arrayEmpleados);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
 
 
                 }
@@ -247,9 +254,9 @@ public class VistaListado extends JFrame {
             modeloTabla.addRow(columna);
         }
     }
-    public static void main(String[] args) throws IOException {
+    /*public static void main(String[] args) throws IOException {
         VistaListado nuevaVentana = new VistaListado();
         nuevaVentana.setVisible(true);
-    }
+    }*/
 }
 

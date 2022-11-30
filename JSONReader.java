@@ -20,11 +20,11 @@ public class JSONReader {
         if (JSONExists() & validateJSON()){
             System.out.println("Aquí comienza el proceso de la entrega 2");
             convertJSONToObjects();
-            //VistaListado nuevaVentana = new VistaListado();
-            //nuevaVentana.mostrarDatos(empManager.getAllContacts());
-            createJSONFileFromArrayList(empManager.getAllContacts());
+            VistaListado nuevaVentana = new VistaListado(this);
+            nuevaVentana.mostrarDatos(empManager.getAllContacts());
+            //createJSONFileFromArrayList(empManager.getAllContacts());
             //System.out.println(empManager.getAllContacts().get(2).getPhoto());
-            System.out.println();
+            //System.out.println();
             
 
         }
@@ -137,7 +137,7 @@ public class JSONReader {
 
 
     
-    public void createJSONFileFromArrayList(ArrayList<Empleado> employeesArray){
+    public boolean createJSONFileFromArrayList(ArrayList<Empleado> employeesArray){
         //System.out.print(employees);
 
         JSONArray employeeList = new JSONArray();
@@ -174,7 +174,7 @@ public class JSONReader {
             e.printStackTrace();
         }
 
-        
+        return true;
     }
 
 
