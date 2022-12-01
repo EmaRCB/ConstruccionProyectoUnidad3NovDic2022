@@ -145,14 +145,13 @@ public class JSONReader {
         int i = 0;
         JSONObject employeeAttributes;
         JSONObject employee = new JSONObject(); 
-        JSONObject jsonObject = new JSONObject();
 
         for (Object object : employeesArray) {
             employeeAttributes = new JSONObject();
-            employeeAttributes.put("id", empManager.getAllContacts().get(i).getId());
-            employeeAttributes.put("firstName", empManager.getAllContacts().get(i).getFirstName());
-            employeeAttributes.put("lastName", empManager.getAllContacts().get(i).getLastName());
-            String url = empManager.getAllContacts().get(i).getPhoto();
+            employeeAttributes.put("id", employeesArray.get(i).getId());
+            employeeAttributes.put("firstName", employeesArray.get(i).getFirstName());
+            employeeAttributes.put("lastName", employeesArray.get(i).getLastName());
+            String url = employeesArray.get(i).getPhoto();
             
             employeeAttributes.put("photo", url);
             
@@ -167,7 +166,7 @@ public class JSONReader {
         JSONObject employees = new JSONObject();
         employees.put("employees", employee);
                                  
-        try(FileWriter fw = new FileWriter("empleados.json")){
+        try(FileWriter fw = new FileWriter("actores.json")){
             fw.write(employees.toString());
             fw.flush();
         }catch(Exception e){
