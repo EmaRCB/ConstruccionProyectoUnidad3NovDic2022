@@ -13,8 +13,8 @@ import org.json.simple.parser.*;
 
 
 public class JSONReader {
-    
-    EmpleadoManager empManager = new EmpleadoManager();
+
+    public EmpleadoManager empManager;
 
     public void readJson() throws Exception{
         if (JSONExists() & validateJSON()){
@@ -100,6 +100,7 @@ public class JSONReader {
 
 
     public void convertJSONToObjects() throws Exception{
+        empManager = new EmpleadoManager();
         String pathfile = "actores.json";
         JSONObject employees = new JSONObject();
         JSONParser parser = new JSONParser();
@@ -137,14 +138,14 @@ public class JSONReader {
 
 
     
-    public boolean createJSONFileFromArrayList(ArrayList<Empleado> employeesArray){
+    public boolean modifyEmployee(ArrayList<Empleado> employeesArray){
         //System.out.print(employees);
 
         JSONArray employeeList = new JSONArray();
 
         int i = 0;
         JSONObject employeeAttributes;
-        JSONObject employee = new JSONObject(); 
+        JSONObject employee = new JSONObject();
 
         for (Object object : employeesArray) {
             employeeAttributes = new JSONObject();
@@ -152,11 +153,11 @@ public class JSONReader {
             employeeAttributes.put("firstName", employeesArray.get(i).getFirstName());
             employeeAttributes.put("lastName", employeesArray.get(i).getLastName());
             String url = employeesArray.get(i).getPhoto();
-            
+
             employeeAttributes.put("photo", url);
-            
+
             i++;
-            
+
             employeeList.add(employeeAttributes);
 
         }
@@ -165,7 +166,48 @@ public class JSONReader {
 
         JSONObject employees = new JSONObject();
         employees.put("employees", employee);
-                                 
+
+        try(FileWriter fw = new FileWriter("actores.json")){
+            fw.write(employees.toString());
+            fw.flush();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+    public boolean deleteEmployee(ArrayList<Empleado> employeesArray, int indiceEmpleado){
+        //System.out.print(employees);
+
+        JSONArray employeeList = new JSONArray();
+
+
+        int i = 0;
+        JSONObject employeeAttributes;
+        JSONObject employee = new JSONObject();
+        employeesArray.remove(indiceEmpleado);
+
+        for (Object object : employeesArray) {
+            employeeAttributes = new JSONObject();
+            employeeAttributes.put("id", employeesArray.get(i).getId());
+            employeeAttributes.put("firstName", employeesArray.get(i).getFirstName());
+            employeeAttributes.put("lastName", employeesArray.get(i).getLastName());
+            String url = employeesArray.get(i).getPhoto();
+
+            employeeAttributes.put("photo", url);
+
+            i++;
+
+            employeeList.add(employeeAttributes);
+
+        }
+
+        employee.put("employee", employeeList);
+
+        JSONObject employees = new JSONObject();
+        employees.put("employees", employee);
+
         try(FileWriter fw = new FileWriter("actores.json")){
             fw.write(employees.toString());
             fw.flush();
