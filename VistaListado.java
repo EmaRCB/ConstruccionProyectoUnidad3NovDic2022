@@ -42,7 +42,7 @@ public class VistaListado extends JFrame {
 
         ventanaListaEmpleados.setDefaultCloseOperation(EXIT_ON_CLOSE);
         ventanaListaEmpleados.setVisible(true);
-        ventanaListaEmpleados.setSize(1015, 836);
+        ventanaListaEmpleados.setSize(1015, 886);
         ventanaListaEmpleados.setLocationRelativeTo(null);
         Color colorComponentes2 = new Color(142, 183, 247);
 
@@ -116,7 +116,7 @@ public class VistaListado extends JFrame {
         urlFoto.setBounds(20, 740, 150, 40);
         //urlFoto.setOpaque(true);
         JTextField campoURL = new JTextField();
-        campoURL.setBounds(180, 740, 500, 40);
+        campoURL.setBounds(180, 740, 540, 40);
         campoURL.setFont(new Font("Cousine", 3, 20));
         campoURL.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -125,13 +125,22 @@ public class VistaListado extends JFrame {
         urlFoto.setVisible(false);
         campoURL.setVisible(false);
 
-        JButton botonGuardar = new JButton("GUARDAR");
-        botonGuardar.setBackground(new Color(255, 94, 109));
-        botonGuardar.setBounds(700, 740, 280, 40);
+        JButton botonGuardar = new JButton("SAVE");
+        botonGuardar.setBackground(colorComponentes2);
+        botonGuardar.setBounds(740, 740, 240, 40);
         botonGuardar.setForeground(Color.white);
         botonGuardar.setFont(new Font("Cousine", 1, 20));
         panel.add(botonGuardar);
         botonGuardar.setVisible(false);
+
+        JButton botonEliminar = new JButton("DELETE EMPLOYEE PERMANENTLY");
+        botonEliminar.setBackground(new Color(255, 94, 109));
+        botonEliminar.setBounds(305, 800, 400, 40);
+        botonEliminar.setForeground(Color.white);
+        botonEliminar.setFont(new Font("Cousine", 1, 20));
+        panel.add(botonEliminar);
+        botonEliminar.setVisible(false);
+
 
 
         ActionListener modificarEmp = new ActionListener(){
@@ -152,6 +161,7 @@ public class VistaListado extends JFrame {
                     urlFoto.setVisible(true);
                     campoURL.setVisible(true);
                     botonGuardar.setVisible(true);
+                    botonEliminar.setVisible(true);
 
                 }
             }
@@ -179,7 +189,7 @@ public class VistaListado extends JFrame {
                     arrayEmpleados.get(indiceEmpleado).setLastName(nuevoLN);
                     arrayEmpleados.get(indiceEmpleado).setPhoto(nuevoURL);
 
-                    jsonReader.createJSONFileFromArrayList(arrayEmpleados);
+                    jsonReader.modifyEmployee(arrayEmpleados);
                     try {
                         mostrarDatos(arrayEmpleados);
                     } catch (IOException ex) {
@@ -191,6 +201,27 @@ public class VistaListado extends JFrame {
             }
         };
         botonGuardar.addActionListener(guardarInfo);
+
+        ActionListener eliminarEmp = new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int opcion = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete employee permanently?",
+                        "DELETE EMPLOYEE", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE);
+                if(opcion == 0){
+                    mensajeAlerta.setVisible(false);
+                    int indiceEmpleado = tablaEmpleados.getSelectedRow();
+                    jsonReader.deleteEmployee(arrayEmpleados, indiceEmpleado);
+
+                    try {
+                        mostrarDatos(arrayEmpleados);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        };
+        botonEliminar.addActionListener(eliminarEmp);
 
     }
 
