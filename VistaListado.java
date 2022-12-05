@@ -42,11 +42,11 @@ public class VistaListado extends JFrame {
 
         ventanaListaEmpleados.setDefaultCloseOperation(EXIT_ON_CLOSE);
         ventanaListaEmpleados.setVisible(true);
-        ventanaListaEmpleados.setSize(1015, 886);
+        ventanaListaEmpleados.setSize(1015, 776);
         ventanaListaEmpleados.setLocationRelativeTo(null);
         Color colorComponentes2 = new Color(142, 183, 247);
 
-        panel.setBounds(0, 0, 1000, 800);
+        panel.setBounds(0, 0, 1000, 750);
         panel.setBackground(new Color(216, 191, 216));
         panel.setLayout(null);
         ventanaListaEmpleados.getContentPane().add(panel);
@@ -56,14 +56,14 @@ public class VistaListado extends JFrame {
 
         JButton botonModificar = new JButton("MODIFY INFO");
         botonModificar.setBackground(colorComponentes2);
-        botonModificar.setBounds(640, 600, 340, 60);
+        botonModificar.setBounds(640, 530, 340, 50);
         botonModificar.setForeground(Color.white);
         botonModificar.setFont(new Font("Cousine", 1, 20));
         panel.add(botonModificar);
 
         JLabel mensajeAlerta = new JLabel("SELECT A ROW FROM THE TABLE TO MODIFY EMPLOYEE");
         mensajeAlerta.setFont(new Font("Cousine", 3,18));
-        mensajeAlerta.setBounds(70, 600, 540, 58);
+        mensajeAlerta.setBounds(70, 530, 540, 50);
         //mensajeAlerta.setOpaque(true);
         mensajeAlerta.setHorizontalAlignment(SwingConstants.CENTER);
         mensajeAlerta.setVisible(false);
@@ -71,10 +71,10 @@ public class VistaListado extends JFrame {
 
         JLabel textoID = new JLabel("ID:");
         textoID.setFont(new Font("Cousine", 1, 18));
-        textoID.setBounds(20, 690, 35, 40);
+        textoID.setBounds(20, 590, 35, 40);
         //textoID.setOpaque(true);
         JTextField campoID = new JTextField();
-        campoID.setBounds(60, 690, 145, 40);
+        campoID.setBounds(60, 590, 145, 40);
         campoID.setFont(new Font("Cousine", 3, 20));
         campoID.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -85,10 +85,10 @@ public class VistaListado extends JFrame {
 
         JLabel firstName = new JLabel("First Name:");
         firstName.setFont(new Font("Cousine", 1, 18));
-        firstName.setBounds(270, 690, 110, 40);
+        firstName.setBounds(270, 590, 110, 40);
         //firstName.setOpaque(true);
         JTextField campoFN = new JTextField();
-        campoFN.setBounds(390, 690, 180, 40);
+        campoFN.setBounds(390, 590, 180, 40);
         campoFN.setFont(new Font("Cousine", 3, 20));
         campoFN.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -99,10 +99,10 @@ public class VistaListado extends JFrame {
 
         JLabel lastName = new JLabel("Last Name:");
         lastName.setFont(new Font("Cousine", 1, 18));
-        lastName.setBounds(620, 690, 110, 40);
+        lastName.setBounds(620, 590, 110, 40);
         //lastName.setOpaque(true);
         JTextField campoLN = new JTextField();
-        campoLN.setBounds(740, 690, 240, 40);
+        campoLN.setBounds(740, 590, 240, 40);
         campoLN.setFont(new Font("Cousine", 3, 20));
         campoLN.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -113,10 +113,10 @@ public class VistaListado extends JFrame {
 
         JLabel urlFoto = new JLabel("Photo from URL:");
         urlFoto.setFont(new Font("Cousine", 1, 18));
-        urlFoto.setBounds(20, 740, 150, 40);
+        urlFoto.setBounds(20, 640, 150, 40);
         //urlFoto.setOpaque(true);
         JTextField campoURL = new JTextField();
-        campoURL.setBounds(180, 740, 540, 40);
+        campoURL.setBounds(180, 640, 540, 40);
         campoURL.setFont(new Font("Cousine", 3, 20));
         campoURL.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -127,7 +127,7 @@ public class VistaListado extends JFrame {
 
         JButton botonGuardar = new JButton("SAVE");
         botonGuardar.setBackground(colorComponentes2);
-        botonGuardar.setBounds(740, 740, 240, 40);
+        botonGuardar.setBounds(740, 640, 240, 40);
         botonGuardar.setForeground(Color.white);
         botonGuardar.setFont(new Font("Cousine", 1, 20));
         panel.add(botonGuardar);
@@ -135,7 +135,7 @@ public class VistaListado extends JFrame {
 
         JButton botonEliminar = new JButton("DELETE EMPLOYEE PERMANENTLY");
         botonEliminar.setBackground(new Color(255, 94, 109));
-        botonEliminar.setBounds(305, 800, 400, 40);
+        botonEliminar.setBounds(305, 690, 400, 35);
         botonEliminar.setForeground(Color.white);
         botonEliminar.setFont(new Font("Cousine", 1, 20));
         panel.add(botonEliminar);
@@ -229,7 +229,7 @@ public class VistaListado extends JFrame {
     public void mostrarDatos(ArrayList<Empleado> arrayEmpleados) throws IOException {
         this.arrayEmpleados = arrayEmpleados;
         System.out.println(arrayEmpleados);
-        scrollPane.setBounds(20, 20, 960, 560);
+        scrollPane.setBounds(20, 20, 960, 500);
         panel.add(scrollPane);
 
         tablaEmpleados.setBackground(new Color(224, 255, 255));
