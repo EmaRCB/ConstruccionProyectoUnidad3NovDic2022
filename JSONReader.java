@@ -218,5 +218,45 @@ public class JSONReader {
         return true;
     }
 
+    public boolean addEmployee(ArrayList<Empleado> employeesArray){
+        //System.out.print(employees);
+
+        JSONArray employeeList = new JSONArray();
+
+        int i = 0;
+        JSONObject employeeAttributes;
+        JSONObject employee = new JSONObject();
+
+        for (Object object : employeesArray) {
+            employeeAttributes = new JSONObject();
+            employeeAttributes.put("id", employeesArray.get(i).getId());
+            employeeAttributes.put("firstName", employeesArray.get(i).getFirstName());
+            employeeAttributes.put("lastName", employeesArray.get(i).getLastName());
+            String url = employeesArray.get(i).getPhoto();
+
+            employeeAttributes.put("photo", url);
+
+            i++;
+
+            employeeList.add(employeeAttributes);
+
+        }
+
+        employee.put("employee", employeeList);
+
+        JSONObject employees = new JSONObject();
+        employees.put("employees", employee);
+
+        try(FileWriter fw = new FileWriter("actores.json")){
+            fw.write(employees.toString());
+            fw.flush();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+
 
 }
