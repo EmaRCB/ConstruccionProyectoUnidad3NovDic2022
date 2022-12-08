@@ -71,6 +71,36 @@ public class JSONModificationTest {
 
     }
 
+    @Test
+    @DisplayName("Adición exitosa")
+    public void agregarEmpleado() throws Exception {
+
+        ArrayList<Empleado> arrayEmpleados = new ArrayList<Empleado>();
+        Empleado nuevoEmpleado = new Empleado("123", "Emanuel", "Chavez", "https://jsonformatter.org/img/tom-cruise.jpg");
+        arrayEmpleados.add(nuevoEmpleado);
+        jsonReader.addEmployee(arrayEmpleados);
+
+        jsonReader.convertJSONToObjects();//se lee el json
+
+        int totalEmpleadosAntes = arrayEmpleados.size();//se cuentan los empleados
+
+        Empleado nuevoEmpleado2 = new Empleado("123", "Jamart", "Chavez", "https://jsonformatter.org/img/tom-cruise.jpg");
+        arrayEmpleados.add(nuevoEmpleado2);
+        jsonReader.addEmployee(arrayEmpleados);
+        
+        jsonReader.convertJSONToObjects();//se lee el json
+
+        int totalEmpleadosDespues = arrayEmpleados.size();//se cuentan los empleados
+
+        assertEquals(totalEmpleadosAntes, totalEmpleadosDespues - 1);
+
+        ArrayList<Empleado> nuevoArray2 = new ArrayList<Empleado>();
+        nuevoArray2 = jsonReader.empManager.getAllContacts();
+        
+        assertEquals("Jamart", nuevoArray2.get(1).getFirstName());
+
+    }
+
 
     
     
