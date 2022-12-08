@@ -51,19 +51,27 @@ public class VistaListado extends JFrame {
         panel.setLayout(null);
         ventanaListaEmpleados.getContentPane().add(panel);
 
-        scrollPane.setBounds(20, 20, 960, 560);
+        scrollPane.setBounds(20, 20, 1000, 560);
         panel.add(scrollPane);
+
+        JButton botonAgregar = new JButton("ADD NEW EMPLOYEE");
+        botonAgregar.setBackground(colorComponentes2);
+        botonAgregar.setBounds(580, 530, 210, 50);
+        botonAgregar.setForeground(Color.white);
+        botonAgregar.setFont(new Font("Cousine", 1, 16));
+        panel.add(botonAgregar);
 
         JButton botonModificar = new JButton("MODIFY INFO");
         botonModificar.setBackground(colorComponentes2);
-        botonModificar.setBounds(640, 530, 340, 50);
+        botonModificar.setBounds(800, 530, 180, 50);
         botonModificar.setForeground(Color.white);
-        botonModificar.setFont(new Font("Cousine", 1, 20));
+        botonModificar.setFont(new Font("Cousine", 1, 17));
         panel.add(botonModificar);
 
+
         JLabel mensajeAlerta = new JLabel("SELECT A ROW FROM THE TABLE TO MODIFY EMPLOYEE");
-        mensajeAlerta.setFont(new Font("Cousine", 3,18));
-        mensajeAlerta.setBounds(70, 530, 540, 50);
+        mensajeAlerta.setFont(new Font("Cousine", 3,16));
+        mensajeAlerta.setBounds(50, 530, 500, 50);
         //mensajeAlerta.setOpaque(true);
         mensajeAlerta.setHorizontalAlignment(SwingConstants.CENTER);
         mensajeAlerta.setVisible(false);
@@ -133,6 +141,14 @@ public class VistaListado extends JFrame {
         panel.add(botonGuardar);
         botonGuardar.setVisible(false);
 
+        JButton botonGuardar2 = new JButton("SAVE");
+        botonGuardar2.setBackground(colorComponentes2);
+        botonGuardar2.setBounds(740, 640, 240, 40);
+        botonGuardar2.setForeground(Color.white);
+        botonGuardar2.setFont(new Font("Cousine", 1, 20));
+        panel.add(botonGuardar2);
+        botonGuardar2.setVisible(false);
+
         JButton botonEliminar = new JButton("DELETE EMPLOYEE PERMANENTLY");
         botonEliminar.setBackground(new Color(255, 94, 109));
         botonEliminar.setBounds(305, 690, 400, 35);
@@ -143,15 +159,30 @@ public class VistaListado extends JFrame {
 
 
 
+
+
         ActionListener modificarEmp = new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 if (tablaEmpleados.getSelectedRow() == -1){
                     mensajeAlerta.setVisible(true);
+                    mensajeAlerta.setText("SELECT A ROW FROM THE TABLE TO MODIFY EMPLOYEE");
+                    textoID.setVisible(false);
+                    campoID.setVisible(false);
+                    firstName.setVisible(false);
+                    campoFN.setVisible(false);
+                    lastName.setVisible(false);
+                    campoLN.setVisible(false);
+                    urlFoto.setVisible(false);
+                    campoURL.setVisible(false);
+                    botonGuardar.setVisible(false);
+                    botonGuardar2.setVisible(false);
+                    botonEliminar.setVisible(false);
                 }
                 else{
-                    mensajeAlerta.setVisible(false);
+                    mensajeAlerta.setText("MODIFYING EMPLOYEE'S INFO");
+                    mensajeAlerta.setVisible(true);
                     textoID.setVisible(true);
                     campoID.setVisible(true);
                     firstName.setVisible(true);
@@ -161,6 +192,7 @@ public class VistaListado extends JFrame {
                     urlFoto.setVisible(true);
                     campoURL.setVisible(true);
                     botonGuardar.setVisible(true);
+                    botonGuardar2.setVisible(false);
                     botonEliminar.setVisible(true);
 
                 }
@@ -168,12 +200,32 @@ public class VistaListado extends JFrame {
         };
         botonModificar.addActionListener(modificarEmp);
 
+        ActionListener agregarEmp = new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mensajeAlerta.setText("ADDING NEW EMPLOYEE");
+                mensajeAlerta.setVisible(true);
+                textoID.setVisible(true);
+                campoID.setVisible(true);
+                firstName.setVisible(true);
+                campoFN.setVisible(true);
+                lastName.setVisible(true);
+                campoLN.setVisible(true);
+                urlFoto.setVisible(true);
+                campoURL.setVisible(true);
+                botonGuardar.setVisible(false);
+                botonGuardar2.setVisible(true);
+                botonEliminar.setVisible(false);
+            }
+        };
+        botonAgregar.addActionListener(agregarEmp);
+
         ActionListener guardarInfo = new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 if(campoID.getText().isEmpty() || campoFN.getText().isEmpty() || campoLN.getText().isEmpty() || campoURL.getText().isEmpty()){
-                    mensajeAlerta.setText("FILL ALL THE TEXT FIELDS TO SAVE");
+                    mensajeAlerta.setText("FILL ALL THE TEXT FIELDS TO SAVE THE NEW INFO");
                     mensajeAlerta.setVisible(true);
                 }
                 else{
@@ -202,10 +254,39 @@ public class VistaListado extends JFrame {
         };
         botonGuardar.addActionListener(guardarInfo);
 
+        ActionListener guardarInfoNueva = new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("good");
+                if(campoID.getText().isEmpty() || campoFN.getText().isEmpty() || campoLN.getText().isEmpty() || campoURL.getText().isEmpty()){
+                    mensajeAlerta.setText("FILL ALL THE TEXT FIELDS TO SAVE THE NEW EMPLOYEE");
+                    mensajeAlerta.setVisible(true);
+                }
+                else{
+                    mensajeAlerta.setVisible(false);
+                    String nuevoID = campoID.getText();
+                    String nuevoFN = campoFN.getText();
+                    String nuevoLN = campoLN.getText();
+                    String nuevoURL = campoURL.getText();
+                    Empleado nuevoEmpleado = new Empleado(nuevoID, nuevoFN, nuevoLN, nuevoURL);
+                    arrayEmpleados.add(nuevoEmpleado);
+                    jsonReader.addEmployee(arrayEmpleados);
+                    try {
+                        mostrarDatos(arrayEmpleados);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+
+                }
+            }
+        };
+        botonGuardar2.addActionListener(guardarInfoNueva);
+
         ActionListener eliminarEmp = new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                int opcion = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete employee permanently?",
+                int opcion = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the employee selected permanently?",
                         "DELETE EMPLOYEE", JOptionPane.YES_NO_OPTION,
                         JOptionPane.WARNING_MESSAGE);
                 if(opcion == 0){
